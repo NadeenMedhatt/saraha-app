@@ -1,5 +1,5 @@
 import { EMAIL_USER } from "../../../../config/config.service.js";
-import { OTPModel } from "../../../DB/model/index.js";
+import { OTPModel } from "../../../DB/models/index.js";
 import { encrypt, transporter } from "./index.js";
 
 function generateOTP(length = 6) {

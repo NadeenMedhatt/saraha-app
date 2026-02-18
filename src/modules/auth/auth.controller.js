@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { login, signup } from "./auth.service.js";
+import {
+  login,
+  loginWithGmail,
+  signup,
+  signupWithGmail,
+} from "./auth.service.js";
 import { successResponse } from "../../common/utils/index.js";
 const router = Router();
 router.post("/signup", async (req, res, next) => {
@@ -12,12 +17,36 @@ router.post("/signup", async (req, res, next) => {
   });
 });
 router.post("/login", async (req, res, next) => {
-  const result = await login(req.body);
+  const result = await login(req.body, `${req.protocol}://${req.host}`);
   return successResponse({
     res,
     message: "Done",
     status: 200,
     data: { result },
+  });
+});
+router.post("/signup/gmail", async (req, res, next) => {
+  const { result, status = 201 } = await signupWithGmail(
+    req.body,
+    `${req.protocol}://${req.host}`,
+  );
+  return successResponse({
+    res,
+    message: "Done",
+    status,
+    data: { result },
+  });
+});
+router.post("/login/gmail", async (req, res, next) => {
+  const account = await loginWithGmail(
+    req.body,
+    `${req.protocol}://${req.host}`,
+  );
+  return successResponse({
+    res,
+    message: "Done",
+    status: 200,
+    data: { account },
   });
 });
 

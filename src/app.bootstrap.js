@@ -3,14 +3,14 @@ import {
   globalErrorHandling,
   NotFoundException,
 } from "./common/utils/index.js";
-import { authenticateDB } from "./DB/connection.db.js";
+import { authenticateDB } from "./DB/index.js";
 import { authRouter, userRouter } from "./modules/index.js";
 import express from "express";
-
+import cors from "cors";
 async function bootstrap() {
   const app = express();
   //convert buffer data
-  app.use(express.json());
+  app.use(cors(), express.json());
 
   //DB connection
 
@@ -23,7 +23,7 @@ async function bootstrap() {
 
   //invalid routing
   app.use("{/*dummy}", (req, res) => {
-    NotFoundException(("Invalid application routing"));
+    NotFoundException("Invalid application routing");
   });
 
   //error-handling
