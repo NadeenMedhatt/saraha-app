@@ -90,7 +90,6 @@ export const signupWithGmail = async ({ idToken }, issuer) => {
     }
     const result = await loginWithGmail({ idToken }, issuer);
     return { result, status: 200 };
-    //return login with gmail
   }
 
   const user = await create({

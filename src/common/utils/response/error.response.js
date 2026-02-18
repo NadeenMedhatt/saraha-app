@@ -8,6 +8,7 @@ export const globalErrorHandling = (error, req, res, next) => {
         ? "something went wrong"
         : (error.message ?? "something went wrong"),
     stack: NODE_ENV == "development" ? error.stack : undefined,
+    extra: error?.cause?.extra,
   });
 };
 export const ErrorException = ({

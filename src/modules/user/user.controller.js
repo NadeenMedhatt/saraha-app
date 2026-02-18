@@ -19,8 +19,6 @@ router.get(
   "/rotate",
   authentication(TokenTypeEnum.refresh),
   async (req, res, next) => {
-    console.log(req.headers.authorization);
-
     const result = await rotateToken(req.user, `${req.protocol}://${req.host}`);
     return successResponse({
       res,
